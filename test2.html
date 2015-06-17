@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <p>Enter names in the fields, then click "Submit" to submit the form:</p>
+
+    <form id="frm1" action="form_action.asp">
+      Code: <textarea id="codeTextArea" rows="4" cols="50"></textarea>
+      Output: <textarea id="outputTextArea" rows="4" cols="50"></textarea>
+      <input type="button" onclick="
+      INTERPRETER.initialize(); 
+      INTERPRETER.loadCode(document.getElementById('codeTextArea').value); 
+      document.getElementById('outputTextArea').value = INTERPRETER.printAllTokens();
+      " value="Submit">
+    </form>
+
+    <script src="interpreter.js"></script>
+
+  </body>
+</html>
+
