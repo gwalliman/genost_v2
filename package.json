@@ -1,0 +1,11 @@
+{
+  "name": "genost_v2",
+  "version": "0.0.1",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-uglify": "^0.9.1",
+    "gulp": "^3.9.0",
+    "gulp-jasmine": "^2.0.1"
+  }
+}

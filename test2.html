@@ -5,8 +5,26 @@
     <p>Enter names in the fields, then click "Submit" to submit the form:</p>
 
     <form id="frm1" action="form_action.asp">
-      Code: <textarea id="codeTextArea" rows="4" cols="50"></textarea>
-      Output: <textarea id="outputTextArea" rows="4" cols="50"></textarea>
+      <div>Code:</div>
+      <textarea id="codeTextArea" rows="4" cols="50">
+loopfor -1
+{
+  method drive(string "f");
+  waituntil ([method getSonars(int 1) < int 20] or [method getSonars(int 3) > int 50]);
+  if ([method getSonars(int 3) > int 50])
+  {
+    waitfor 500;
+    method turnAngle(int 90);
+    method drive(string "f");
+    waitfor 2000;
+  }
+  elseif ([method getSonars(int 1) < int 20])
+  {
+    method turnAngle(int -90);
+  }
+}</textarea>
+      <div>Output:</div>
+      <textarea id="outputTextArea" rows="4" cols="50"></textarea>
       <input type="button" onclick="
       INTERPRETER.initialize(); 
       INTERPRETER.loadCode(document.getElementById('codeTextArea').value); 
@@ -14,7 +32,7 @@
       " value="Submit">
     </form>
 
-    <script src="interpreter.js"></script>
+    <script src="js/build/production.js"></script>
 
   </body>
 </html>
