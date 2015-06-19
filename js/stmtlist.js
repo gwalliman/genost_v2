@@ -19,10 +19,10 @@ function StmtList(interpreter, body)
   this.body = body;
 
   this.stmt = {};
-  this.nextStmt = {}
+  this.nextStmt = {};
 
   //Skip over any empty lines (i.e. whitespace only)
-  while(this.interpreter.getCurrentLine().trim().length == 0) 
+  while(this.interpreter.getCurrentLine().trim().length === 0) 
   { 
     this.interpreter.goToNextLine();
   }
@@ -36,7 +36,7 @@ function StmtList(interpreter, body)
   interpreter.goToNextLine();
   
   //If we are not at the end of the parent body or the end of the code, itself, add a new STMTLIST to the linked list
-  if(this.interpreter.getCurrentLine() != null && this.interpreter.getCurrentLineNum() != this.body.getFinishLine())
+  if(this.interpreter.getCurrentLine() !== null && this.interpreter.getCurrentLineNum() != this.body.getFinishLine())
   {
     this.nextStmt = new StmtList(this.interpreter, this.body);
   }
@@ -47,25 +47,25 @@ function StmtList(interpreter, body)
  */
 StmtList.prototype.getStmt = function() {
   return this.stmt;
-}
+};
 
 /**
  * @return  returns the next statement in the list. Returns NULL if this STMTLIST does not exist.
  */
 StmtList.prototype.getNextStmt = function() {
   return this.nextStmt;
-}
+};
 
 /**
  * Print function. Prints the current stmt and, if the next STMTLIST exists, prints that.
  */
 StmtList.prototype.print = function() {
-  if(this.stmt != null)
+  if(this.stmt !== null)
   {
     this.stmt.print();
     this.interpreter.write("parse", "\n");
     
-    if(this.nextStmt != null)
+    if(this.nextStmt !== null)
     {
       this.nextStmt.print();
     }
@@ -74,7 +74,7 @@ StmtList.prototype.print = function() {
   {
     this.interpreter.writeln("parse", "EMPTY STMTLIST");
   }
-}
+};
 
 /**
  * Validation function. If the STMT exists, call its validation function. If the next STMTLIST exists, call its validation function

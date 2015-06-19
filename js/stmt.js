@@ -57,7 +57,7 @@ function Stmt(interpreter, body)
     {
       //Ensure that the semicolon exists. If it does, remove it and call the METHOD parser.
       var lastchar = this.code.substring(this.code.length - 1);
-      if(!lastchar == TERMINALS.STMTTYPES.SEMICOLON)
+      if(lastchar != TERMINALS.STMTTYPES.SEMICOLON)
       {
         this.interpreter.error("METHOD", this.lineNum, this.codeLine, "Missing Semicolon");
       }
@@ -111,21 +111,21 @@ function Stmt(interpreter, body)
  */
 Stmt.prototype.type = function() {
   return this.stmtType;
-}
+};
 
 /**
  * @return  the stmt object itself.
  */
 Stmt.prototype.getStmt = function() {
   return this.stmt;
-}
+};
 
 /**
  * Printing function, determines what type of stmt this is ands calls that type's print function.
  */
 Stmt.prototype.print = function() {
   stmt.print();
-}
+};
 
 /**
  * Simple validation function, determines what kind of statement we have, and calls that type's validation function.

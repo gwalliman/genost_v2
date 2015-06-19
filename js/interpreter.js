@@ -1,3 +1,5 @@
+var exports = {};
+
 var INTERPRETER = {
 
   varStack: {},
@@ -44,7 +46,7 @@ var INTERPRETER = {
   //Step 1: Load In Code and Tokenize
   loadCode: function(codeString) {
 
-    this.code = new Code(codeString);
+    this.code = new Code(this, codeString);
     this.code.tokenizeCode();
   },
 
@@ -61,6 +63,12 @@ var INTERPRETER = {
     return this.code.printAllTokens();
   },
 
+  messageMask: {},
+
+  setMessageMask: function(t, val) {
+      this.messageMask[t] = val;
+  },
+
   /**
    * This function is used to control which printed messages should be printed to the screen.
    * Modify the values in here to turn on or off different message printings.
@@ -70,22 +78,14 @@ var INTERPRETER = {
    * @param t the type of message we are querying about
    * @return  true if we can print this type of message, false otherwise
    */
-  showMessage: function(t) {
-    if (t == "parse")
-    {
-      return true;
-    }
-    else if (t == "validate")
-    {
-      return false;
-    }
-    else if (t == "debug")
+  canShowMessage: function(t) {
+    if(this.messageMask.hasOwnProperty(t) && this.messageMask[t] === true)
     {
       return true;
     }
     else
     {
-      return true;
+      return false;
     }
   },
 
@@ -121,7 +121,7 @@ var INTERPRETER = {
    */ 
   write: function(type, s)
   {
-    if(this.showMessage(type))
+    if(this.canShowMessage(type))
     {
       /*for(RobotListener l : robotInterpreter.getRobotListeners())
       {
@@ -141,7 +141,7 @@ var INTERPRETER = {
    */
   writeln: function(type, s)
   {
-    if(this.showMessage(type))
+    if(this.canShowMessage(type))
     {
       /*for(RobotListener l : robotInterpreter.getRobotListeners())
       {
@@ -150,4 +150,16 @@ var INTERPRETER = {
       console.log(s + "\n");
     }
   },
+};
+
+exports.initialize = function() {
+  return INTERPRETER.initialize();
+};
+
+exports.loadCode = function(code) {
+  return INTERPRETER.loadCode(code);
+};
+
+exports.getCode = function() {
+  return INTERPRETER.code;
 };

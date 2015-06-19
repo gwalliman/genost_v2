@@ -77,7 +77,7 @@ var TERMINALS = {
   //TODO: improve the way this is handled. Do we really need these huge arrays?
   
   searchForTerminal: function(token, terminalType) {
-    if(this[terminalType] != null)
+    if(this[terminalType] !== null)
     {
       for(var prop in this[terminalType]) 
       {

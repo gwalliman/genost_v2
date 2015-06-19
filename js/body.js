@@ -78,7 +78,7 @@ Body.prototype.findCloseBrace = function() {
 
   //We know we have one open brace.
   var numOpens = 1;
-  while(numOpens != 0 && this.interpreter.goToNextLine() != null)
+  while(numOpens !== 0 && this.interpreter.goToNextLine() !== null)
   {
     var currentLineTokens = this.interpreter.getCurrentLineTokens();
     if(currentLineTokens.length == 1 && currentLineTokens[0] == TERMINALS.SYMBOLS.OPENBRACE)
@@ -91,7 +91,7 @@ Body.prototype.findCloseBrace = function() {
     }
   }
 
-  if(numOpens == 0)
+  if(numOpens === 0)
   {
     this.finishLine = this.interpreter.getCurrentLineNum();
     this.interpreter.setCurrentLineNum(this.startLine);
@@ -100,7 +100,7 @@ Body.prototype.findCloseBrace = function() {
   {
     this.interpreter.error("BODY", this.interpreter.getCurrentLineNum(), this.interpreter.getCurrentLine(), "Body must end with }");
   }
-}
+};
 
 /**
  * Getter for the stmtlist variable.
@@ -109,7 +109,7 @@ Body.prototype.findCloseBrace = function() {
  */
 Body.prototype.getStmtList = function() {
   return this.stmtList;
-}
+};
 
 /**
  * Getter for the startLine (the line which contains the body's open brace)
@@ -118,7 +118,7 @@ Body.prototype.getStmtList = function() {
  */
 Body.prototype.getStartLine = function() {
   return this.startLine;
-}
+};
 
 /**
  * Getter for the finishLine (the line which contains the body's close brace)
@@ -127,18 +127,18 @@ Body.prototype.getStartLine = function() {
  */
 Body.prototype.getFinishLine = function() {
   return this.finishLine;
-}
+};
 
 /**
  * Prints the body and its stmts.
  * Also prints a line indicating the body's open and close line numbers.
  */
 Body.prototype.print = function() {
-  if(this.stmtList != null)
+  if(this.stmtList !== null)
   {
     this.interpreter.writeln("parse", "BODY: Start Line " + this.startLine + ", Finish Line " + this.finishLine);
     this.interpreter.writeln("parse", "{");
-    if(this.stmtList != null)
+    if(this.stmtList !== null)
     {
       this.stmtList.print();
     }
@@ -152,7 +152,7 @@ Body.prototype.print = function() {
   {
     this.interpreter.write("parse", "EMPTY BODY");
   }
-}
+};
 
 /**
  * Validation function for the body.

@@ -1,8 +1,7 @@
-var interpreter = require('../interpreter.js');
+var interpreter = require('../build/production.js');
 describe("#interpreter_load_test", function() {
   it("loads the code correctly", function() {
-    var code = 
-
+    var testCode = 
 "loopfor -1\n" +
 "{\n" +
   'method drive(string "f");\n' +
@@ -18,13 +17,14 @@ describe("#interpreter_load_test", function() {
   "{\n" +
     "method turnAngle(int -90);\n" +
   "}\n" +
-"}\n";
+"}";
 
-    interpreter.INTERPRETER.initialize();
-    interpreter.INTERPRETER.loadCode(code);
-    var numLines = interpreter.INTERPRETER.code.codeLength;
-    var loadedCode = interpreter.INTERPRETER.code.codeString;
-    expect(numLines).toBe();
-    expect(loadedCode).toBe(code);
+    interpreter.initialize();
+    interpreter.loadCode(testCode);
+    var codeObj = interpreter.getCode();
+    var numLines = codeObj.codeLength;
+    var loadedCode = codeObj.codeString;
+    expect(numLines).toBe(16);
+    expect(loadedCode).toBe(testCode);
   });
 });
