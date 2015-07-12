@@ -1,0 +1,56 @@
+{
+	methoddefine int testMethod()
+	{
+		assign ADSF = int 20;
+		assign garret1 = bool false;
+		return int 0;
+	}
+
+	methoddefine int testMethod2(int x)
+	{
+		assign ADSF = int 20;
+		assign garret1 = bool false;
+		return int 0;
+	}
+
+	methoddefine int testMethod3(int x, bool y, string z)
+	{
+		assign ADSF = int 20;
+		assign garret1 = bool false;
+		return int 0;
+	}
+
+	vardecl int ADSF;
+	vardecl int QWERTY;
+	vardecl string naomi;
+	vardecl bool garret1;
+
+	assign ADSF = int 10;
+	assign QWERTY = var ADSF;
+	assign naomi = string "AWESOMENESS";
+	assign garret1 = bool true;
+	
+	loopuntil ([[var ADSF > int 1] and [var naomi != string "hello"]])
+	{
+	}
+	
+	loopuntil ([var naomi != string "hello"] or [var ADSF > int 1])
+	{
+	}
+	
+	loopuntil ([var garret1 == bool true])
+	{
+	}
+	
+	loopuntil ([[var ADSF > int 1] and [var naomi != string "hello"]] and [int 1 < int 2])
+	{
+	}
+	
+	loopuntil ([int 1 >= int 2] and [[var naomi != string "hello"] or [var ADSF > int 1]])
+	{
+	}
+	
+	loopuntil ([[var ADSF > int 1] and [[var naomi != string "hello"] or [var ADSF > int 1]]] and [[var naomi != string "hello"] or [var ADSF > int 1]])
+	{
+	}
+}

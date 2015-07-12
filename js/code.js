@@ -10,7 +10,21 @@ function Code(interpreter, c)
   this.codeLines = this.codeString.split("\n");
   this.codeLength = this.codeLines.length;
   this.tokenizedCode = [];
+
+  this.preprocessCode();
 }
+
+Code.prototype.preprocessCode = function() {
+  for(var x = this.codeLength - 1; x >= 0; x--)
+  {
+    if(this.codeLines[x].trim() === '')
+    {
+      //http://stackoverflow.com/questions/206988/how-do-i-unset-an-element-in-an-array-in-javascript
+      this.codeLines.splice(x, 1);
+      this.codeLength--;
+    }
+  }
+};
 
 Code.prototype.getCodeLength = function() {
   return this.codeLength;
@@ -226,7 +240,6 @@ Code.prototype.tokenizeLine = function(lineNum, codeLine) {
               //Tokenize the right half and add it to the array
               tokens.push.apply(tokens, this.tokenizeLine(lineNum, right));
             }
-            break;
           }
         }
       }

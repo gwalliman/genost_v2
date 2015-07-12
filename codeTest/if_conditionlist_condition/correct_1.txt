@@ -1,0 +1,9 @@
+{
+	vardecl int x;
+	assign x = int 1;
+	
+	if ([var x == int 1])
+	{
+		assign x = int 2;
+	}
+}

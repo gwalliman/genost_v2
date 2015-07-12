@@ -1,5 +1,3 @@
-var exports = {};
-
 var INTERPRETER = {
 
   varStack: {},
@@ -7,8 +5,9 @@ var INTERPRETER = {
   extMethodTable: {},
   currentLineNum: 0,
 
-  code: {},
+  messageMask: {},
 
+  code: {},
   body: {},
 
   getCurrentLineNum: function() {
@@ -16,10 +15,11 @@ var INTERPRETER = {
   },
 
   setCurrentLineNum: function(lineNum) {
-    if(lineNum >= 0 && lineNum <= this.code.getCodeLength())
+    if(lineNum >= 0 && lineNum < this.code.getCodeLength() - 1)
     {
       this.currentLineNum = lineNum;
     }
+    return this.code.getLine(this.currentLineNum);
   },
 
   getCurrentLine: function() {
@@ -30,8 +30,16 @@ var INTERPRETER = {
     return this.code.getTokenizedLine(this.currentLineNum);
   },
 
+  goToPrevLine: function() {
+    if(this.currentLineNum > 0)
+    {
+      this.currentLineNum--;
+    }
+    return this.code.getLine(this.currentLineNum);
+  },
+
   goToNextLine: function() {
-    if(this.currentLineNum < this.code.getCodeLength())
+    if(this.currentLineNum < this.code.getCodeLength() - 1)
     {
       this.currentLineNum++;
     }
@@ -40,6 +48,7 @@ var INTERPRETER = {
 
   //Step 0: Load In External Methods
   initialize: function() {
+    this.clearCode();
     //TODO
   },
 
@@ -53,8 +62,6 @@ var INTERPRETER = {
   //Step 2: Parse Code
   parseCode: function() {
     this.body = new Body(this, null, this.code);
-    console.log(this.body);
-
   },
   
   //Step 3: Link and Validate Code
@@ -62,8 +69,6 @@ var INTERPRETER = {
   printAllTokens: function() {
     return this.code.printAllTokens();
   },
-
-  messageMask: {},
 
   setMessageMask: function(t, val) {
       this.messageMask[t] = val;
@@ -128,6 +133,7 @@ var INTERPRETER = {
         l.print(s);
       }*/
       console.log(s);
+      return s;
     }
   },
   
@@ -148,18 +154,24 @@ var INTERPRETER = {
         l.println(s);
       }*/
       console.log(s + "\n");
+      return s + "\n";
     }
+  },
+
+  clearCode: function() {
+    this.varStack = {};
+    this.methodTable = {};
+    this.extMethodTable = {};
+    this.currentLineNum = 0;
+
+    this.messageMask = {};
+
+    this.code = {};
+    this.body = {};
   },
 };
 
-exports.initialize = function() {
-  return INTERPRETER.initialize();
-};
 
-exports.loadCode = function(code) {
-  return INTERPRETER.loadCode(code);
-};
-
-exports.getCode = function() {
-  return INTERPRETER.code;
+module.exports = {
+  interpreter: INTERPRETER,
 };

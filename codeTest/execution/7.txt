@@ -1,0 +1,17 @@
+{
+	vardecl int x;
+	vardecl int y;
+	assign x = int 1;
+	assign y = int 1;
+	
+	loopfor 5 
+	{
+		vardecl int x;
+		method print(method intToString(var x));
+		assign x = var y;
+		method print(method intToString(var x));
+		assign y = method add(var y, int 1);
+	}
+	
+	method print(method intToString(var x));
+}

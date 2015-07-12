@@ -1,0 +1,38 @@
+{
+	methoddefine int testMethod()
+	{
+		assign ADSF = int 20;
+		assign garret1 = bool false;
+	}
+
+	methoddefine int testMethod2(int x)
+	{
+		assign ADSF = int 20;
+		assign garret1 = bool false;
+	}
+	
+	methoddefine int testMethod3(int x, bool y, string z)
+	{
+		assign ADSF = int 20;
+		assign garret1 = bool false;
+	}
+	
+	vardecl int ASDF;
+	vardecl int QWERTY;
+	vardecl string naomi;
+	vardecl bool garret1;
+	
+	assign ASDF = int 10;
+	assign QWERTY = var ASDF;
+	assign naomi = string "AWESOMENESS";
+	assign garret1 = bool true;
+	
+	method testMethod1);
+	method testMethod2(var QWERTY);
+	method testMethod3(var ADSF, var garret1, var naomi);
+	method testMethod3(int 15, bool false, string "cool");
+	
+	method testMethod2(method testMethod());
+	method testMethod3(method testMethod2(method testMethod()), bool true, string "12345");
+	
+}

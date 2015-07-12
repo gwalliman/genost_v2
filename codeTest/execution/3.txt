@@ -1,0 +1,15 @@
+{
+	methoddefine void square(int z)
+	{
+		method print(method intToString(method multiply(var z, var z)));
+	}
+	
+	vardecl int x;
+	vardecl int y;
+	
+	assign x = int 5;
+	assign y = int 10;
+	
+	method square(var x);
+	method square(var y);
+}

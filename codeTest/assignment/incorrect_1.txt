@@ -1,0 +1,11 @@
+{
+	vardecl int ASDF;
+	vardecl int QWERTY;
+	vardecl string naomi;
+	vardecl bool garret1;
+	
+	assign ASDF = int;
+	assign QWERTY = var ASDF;
+	assign naomi = string "AWESOMENESS";
+	assign garret1 = bool true;
+}

@@ -1,0 +1,7 @@
+{
+	vardecl int ASDF;
+	vardecl int QWERTY;
+	
+	assign ASDF = int 10;
+	assign QWERTY = var ASDF;
+}

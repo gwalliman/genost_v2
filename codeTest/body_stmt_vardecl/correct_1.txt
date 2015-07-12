@@ -1,0 +1,4 @@
+{
+	vardecl int x;
+	vardecl int y;
+}

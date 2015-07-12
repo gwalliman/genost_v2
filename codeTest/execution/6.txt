@@ -1,0 +1,67 @@
+{
+	methoddefine int square(int z)
+	{
+		method print(method intToString(method multiply(var z, var z)));
+		return method multiply(var z, var z);
+	}
+	
+	vardecl int x;
+	vardecl int y;
+	
+	assign x = int 4;
+	assign y = int 20;
+	
+	if ([method square(var x) > var x])
+	{
+		method print(string "Pass 1");
+	}
+	else
+	{
+		method print(string "Fail 1");
+	}
+	
+	if ([method square(var x) < var y] and [var x == var y])
+	{
+		method print(string "Fail 2");
+	}
+	elseif ([method square(var x) < var y])
+	{
+		method print(string "Pass 2");
+	}
+	
+	if ([method square(method square(var x)) < var y])
+	{
+		method print(string "Fail 3");
+	}
+	else
+	{
+		method print(string "Pass 3");
+	}
+	
+	if ([[var x <= var y] and [var x > var y]] or [var y == int 20])
+	{
+		method print(string "Pass 4");
+	}
+	else
+	{
+		method print(string "Fail 4");
+	}
+	
+	if ([method square(var x) < var y])
+	{
+		method print(string "Pass 5");
+	}
+	
+	if ([method square(var x) < var y] and [var x == var y])
+	{
+		method print(string "Fail 6");
+	}
+	elseif ([method square(var x) < var y])
+	{
+		method print(string "Pass 6");
+	}
+	else
+	{
+		method print(string "Fail 6");
+	} 
+}

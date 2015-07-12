@@ -1,0 +1,22 @@
+{
+	vardecl int x;
+	
+	methoddefine void countTo10(int z)
+	{
+		vardecl int x;
+		loopuntil ([var z == int 10])
+		{
+			method print(method intToString(var z));
+			assign z = method add(var z, int 1);
+		}
+		assign x = var z;
+	}
+	
+	assign x = int 0;
+	
+	loopuntil ([var x > int 10])
+	{
+		method countTo10(var x);
+		assign x = method add(var x, int 1);
+	}
+}

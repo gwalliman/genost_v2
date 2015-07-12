@@ -1,0 +1,20 @@
+{
+	vardecl int x;
+	vardecl int y;
+	
+	assign x = int 2;
+	assign y = int 4;
+	
+	method print(method intToString(var x));
+	method print(method intToString(var y));
+	
+	assign x = method add(var x, var y);
+	
+	method print(method intToString(var x));
+	method print(method intToString(var y));
+	
+	assign y = method multiply(var y, int 2);
+	
+	method print(method intToString(var x));
+	method print(method intToString(var y));
+}

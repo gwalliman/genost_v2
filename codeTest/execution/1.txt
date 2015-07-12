@@ -1,0 +1,3 @@
+{
+	method print(string "Hello World");
+}
