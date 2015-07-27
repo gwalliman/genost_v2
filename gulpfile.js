@@ -7,9 +7,11 @@ var karma = require('gulp-karma');
 var mocha = require('gulp-mocha');
 
 gulp.task('browserfy', function() {
-  return gulp.src('js/*.js')
+  return gulp.src(['js/*.js', 'js/externalMethods/*.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
+    .pipe(concat('production.js'))
+    .pipe(gulp.dest('js/build'))
     .pipe(uglify())
     .pipe(concat('production.min.js'))
     .pipe(gulp.dest('js/build'));

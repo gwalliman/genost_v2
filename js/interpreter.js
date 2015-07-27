@@ -1,8 +1,8 @@
 var INTERPRETER = {
 
   varStack: {},
-  methodTable: {},
-  extMethodTable: {},
+  methodTable: [],
+  extMethodTable: [],
   currentLineNum: 0,
 
   messageMask: {},
@@ -49,19 +49,23 @@ var INTERPRETER = {
   //Step 0: Load In External Methods
   initialize: function() {
     this.clearCode();
-    //TODO
+    for(var x = 0, length = this.extMethodTable.length; x < length; x++)
+    {
+      this.methodTable.push(new Methoddefine(this.body, this.extMethodTable[x]));
+    }
   },
 
   //Step 1: Load In Code and Tokenize
   loadCode: function(codeString) {
-
-    this.code = new Code(this, codeString);
+    this.clearCode();
+    this.code = new Code(codeString);
     this.code.tokenizeCode();
+    this.setCurrentLineNum(0);
   },
 
   //Step 2: Parse Code
   parseCode: function() {
-    this.body = new Body(this, null, this.code);
+    this.body = new Body(null);
   },
   
   //Step 3: Link and Validate Code
@@ -105,10 +109,24 @@ var INTERPRETER = {
    * @param c the code fragment which contains the error
    * @param error a String describing the error
    */
-  error: function(variable, lineNum, code, error) {
+  error: function(variable, error, lineNum, code) {
+    if(lineNum === undefined && code === undefined)
+    {
+      lineNum = this.getCurrentLineNum();
+      code = this.getCurrentLine();
+    }
+
     var fu = variable.toUpperCase() + " ERROR Near Line " + lineNum + ": " + code + "\n" + error;
-    console.log(fu);
-    throw new Error(fu);
+    if(this.canShowMessage('error'))
+    {
+      console.log(fu);
+    }
+    throw {
+      text: fu,
+      lineNum: lineNum,
+      code: code.trim(),
+      error: error.replace(/(\r\n|\n|\r)/gm,"").replace(/\t/g,"")
+    };
 
     /*for(RobotListener l : robotInterpreter.getRobotListeners())
     {
@@ -160,8 +178,7 @@ var INTERPRETER = {
 
   clearCode: function() {
     this.varStack = {};
-    this.methodTable = {};
-    this.extMethodTable = {};
+    this.methodTable = [];
     this.currentLineNum = 0;
 
     this.messageMask = {};

@@ -1,11 +1,10 @@
-function Code(interpreter, c)
+function Code(c)
 {
   if(c.length === 0)
   {
     c = "";
   }
 
-  this.interpreter = interpreter;
   this.codeString = c;
   this.codeLines = this.codeString.split("\n");
   this.codeLength = this.codeLines.length;
@@ -69,8 +68,7 @@ Code.prototype.exciseString = function(stringToExcise)
   //If there is no found quote, then the string is not enclosed.
   if(splitString.length == 1)
   {
-    //TODO: error handling
-    //interpreter.error("STRING", -1, s, "Unenclosed string!");
+    INTERPRETER.error("STRING", "Unenclosed string!");
   }
   var firstElement = splitString.shift();
   var remainder = splitString.join();
@@ -120,10 +118,10 @@ Code.prototype.implode = function(stringBits, seperator, start, end)
  */
 Code.prototype.tokenizeLine = function(lineNum, codeLine) {
   var tokens = [];
-  this.interpreter.writeln('tokenize', 'Line ' + lineNum + ' Codeline: ' + codeLine);
+  INTERPRETER.writeln('tokenize', 'Line ' + lineNum + ' Codeline: ' + codeLine);
   //We first split up the string by spaces.
   var pass = codeLine.trim().split(" ");
-  this.interpreter.writeln('tokenize', 'Line ' + lineNum + ' Pass: ' + pass);
+  INTERPRETER.writeln('tokenize', 'Line ' + lineNum + ' Pass: ' + pass);
 
   //Go over each individual item separated by spaces in the original string.
   //This will get all tokens of type 2 without further processing,
@@ -132,25 +130,25 @@ Code.prototype.tokenizeLine = function(lineNum, codeLine) {
   {
     //Trim the string and ensure it's not empty space. If it is, move on to the next one.
     var token = pass[x].trim();
-    this.interpreter.writeln('tokenize', 'Line ' + lineNum + ' Token ' + x + ': ' + token);
+    INTERPRETER.writeln('tokenize', 'Line ' + lineNum + ' Token ' + x + ': ' + token);
     if(token.length > 0)
     {
       //If the string is entirely alphanumeric, add it to the array and move on to the next one.
       if(this.checkAlphaNumeric(token))
       {
-        this.interpreter.writeln('tokenize', 'Line ' + lineNum + ' ' + token + ' is alphanumeric, pushing');
+        INTERPRETER.writeln('tokenize', 'Line ' + lineNum + ' ' + token + ' is alphanumeric, pushing');
         tokens.push(token);
       }
       //If the string has a symbol, it could be of type 1, 3 or 4
       else
       {
-        this.interpreter.writeln('tokenize', 'Line ' + lineNum + ' ' + token + ' is not alphanumeric');
+        INTERPRETER.writeln('tokenize', 'Line ' + lineNum + ' ' + token + ' is not alphanumeric');
 
         //If this token has a quote as its first character, we will consider it, 
         //and all tokens following it (until we find another quote), part of a type 3 String token
         if(token.indexOf(TERMINALS.SYMBOLS.QUOTE > -1) && token.substring(0, 1) == TERMINALS.SYMBOLS.QUOTE)
         {
-          this.interpreter.writeln('tokenize', 'Line ' + lineNum + ' ' + token + ' contains a Type 3 (string)');
+          INTERPRETER.writeln('tokenize', 'Line ' + lineNum + ' ' + token + ' contains a Type 3 (string)');
           //Put the remaining tokens back together.
           var r = this.implode(pass, " ", x, pass.length - 1);
           var exciseResult = this.exciseString(r);
@@ -175,7 +173,7 @@ Code.prototype.tokenizeLine = function(lineNum, codeLine) {
         //We treat the dash and all numbers following as part of one token, and continue on after the first non-numeric character.
         else if(token.indexOf(TERMINALS.SYMBOLS.DASH) > -1 && token.substring(0, 1) == TERMINALS.SYMBOLS.DASH)
         {
-          this.interpreter.writeln('tokenize', 'Line ' + lineNum + ' ' + token + ' contains a Type 4 (negative number)');
+          INTERPRETER.writeln('tokenize', 'Line ' + lineNum + ' ' + token + ' contains a Type 4 (negative number)');
           var start = 1;
           var end = 2;
           var negInt = TERMINALS.SYMBOLS.DASH;
@@ -206,14 +204,14 @@ Code.prototype.tokenizeLine = function(lineNum, codeLine) {
               tokens.push(remainingTokensNeg[z]);
             }
           }
-          
+          INTERPRETER.writeln('tokenize', tokens);  
           return tokens;
         }
         //If we don't meet the criteria above, then we assume type 1
         //We know at this point that we have at least one symbol somewhere in the string.
         else
         {
-          this.interpreter.writeln('tokenize', 'Line ' + lineNum + '  ' + token + ' contains a Type 1 (symbol)');
+          INTERPRETER.writeln('tokenize', 'Line ' + lineNum + '  ' + token + ' contains a Type 1 (symbol)');
 
           //Go through each symbol to find which one we have
           var symbol = TERMINALS.searchForTerminal(token, "SYMBOLS");
@@ -222,9 +220,9 @@ Code.prototype.tokenizeLine = function(lineNum, codeLine) {
             //Split the string around that one symbol (resulting in two halves)
             var splitToken = token.split(symbol);
             var left = splitToken.shift();
-            this.interpreter.writeln('tokenize', 'Line ' + lineNum + ' Left: ' + left);
-            var right = splitToken.join();
-            this.interpreter.writeln('tokenize', 'Line ' + lineNum + ' Right: ' + right);
+            INTERPRETER.writeln('tokenize', 'Line ' + lineNum + ' Left: ' + left);
+            var right = splitToken.join(symbol);
+            INTERPRETER.writeln('tokenize', 'Line ' + lineNum + ' Right: ' + right);
 
             if(left)
             {
